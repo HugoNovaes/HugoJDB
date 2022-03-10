@@ -1,6 +1,5 @@
 package database.classes;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import database.classes.exceptions.InvalidFormatException;
 
 import java.util.Date;

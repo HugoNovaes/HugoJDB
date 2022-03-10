@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Repository {
     private final Map<Integer, Record> records = new HashMap<>();
-    private final Map<String, Column> columns = new HashMap<>();
+    private final List<Column> columns = new ArrayList<>();
     private final List<String> columnNames = new ArrayList<>();
     private final String name;
 
@@ -23,12 +23,12 @@ public class Repository {
 
     public void addColumn(Column... args) {
         for (Column c : args) {
-            Column existing = this.columns.get(c.getName());
-            if (existing != null) {
+            Optional<Column> existing = this.columns.stream().filter(d -> d.getName().equals(c.getName())).findFirst();
+            if (existing.isPresent()) {
                 throw new KeyAlreadyExistsException("Column " + c.getName() + " already exists!");
             }
 
-            this.columns.put(c.getName(), c);
+            this.columns.add(c);
             this.columnNames.add(c.getName());
         }
     }
@@ -90,7 +90,7 @@ public class Repository {
 
         for (int i = 0; i < args.length; i++) {
             String colName = this.columnNames.get(i);
-            Column column = this.columns.get(colName);
+            Column column = this.columns.stream().filter(d -> d.getName().equals(colName)).findFirst().get();
 
             Object value = getWrappedValue(args[i]);
 
@@ -110,7 +110,7 @@ public class Repository {
     }
 
     private Column getKeyColumn() {
-        Optional<Column> optional = this.columns.values().stream().filter(Column::isPrimaryKey).findFirst();
+        Optional<Column> optional = this.columns.stream().filter(Column::isPrimaryKey).findFirst();
         return optional.orElse(null);
     }
 
@@ -133,8 +133,8 @@ public class Repository {
     }
 
     public List<Record> find(String columnName, Object value) {
-        Column column = this.columns.get(columnName);
-        if (column == null) {
+        Optional<Column> column = this.columns.stream().filter(d -> d.getName().equals(columnName)).findFirst();
+        if (!column.isPresent()) {
             return null;
         }
 

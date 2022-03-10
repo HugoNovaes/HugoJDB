@@ -4,7 +4,6 @@ import javax.management.openmbean.KeyAlreadyExistsException;
 import java.util.*;
 
 public class Record implements Comparable<Record>, Comparator {
-    //private final Map<String, Field> fields = new HashMap<>();
     private final List<Field> fields = new LinkedList<>();
     private final int index;
     private Field keyField;

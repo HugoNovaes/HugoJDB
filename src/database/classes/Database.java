@@ -6,6 +6,11 @@ import java.util.Map;
 
 public class Database {
     private final Map<String, Repository> repositoryList = new HashMap<>();
+    private final String databaseName;
+
+    public Database(String databaseName) {
+        this.databaseName = databaseName;
+    }
 
     public Repository createRepository(String name) {
         Repository existing = this.repositoryList.get(name);

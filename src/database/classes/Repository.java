@@ -71,7 +71,7 @@ public class Repository {
     }
 
     /**
-     *  Add a new record to the repository with the field values specified in the <strong>args</strong> parameter.
+     * Add a new record to the repository with the field values specified in the <strong>args</strong> parameter.
      *
      * @param args The parameter <strong>args</strong> contains the list with the exact length of the columns' length
      *             and must contain the values to set each field into the record.

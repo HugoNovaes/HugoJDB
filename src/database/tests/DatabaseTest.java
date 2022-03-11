@@ -8,7 +8,7 @@ import java.util.List;
 
 public class DatabaseTest {
     public static void main(String[] args) {
-        Database db = new Database();
+        Database db = new Database("Pets");
 
         Repository repository = db.createRepository("Balaio de gato",
                 new Column("Id", FieldType.INTEGER, true),

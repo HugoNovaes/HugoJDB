@@ -2,6 +2,7 @@ package database.tests;
 
 import database.classes.*;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Random;
@@ -33,8 +34,8 @@ public class PerformanceTest {
             String name = names[rnd.nextInt(names.length)];
             String gender = genders[rnd.nextInt(genders.length)];
             String specie = species[rnd.nextInt(species.length)];
-
-            Date birthDate = new Date(rnd.nextInt(25) + 1980, rnd.nextInt(12) + 1, rnd.nextInt(28) + 1);
+            int month = rnd.nextInt(12) + 1;
+            LocalDate birthDate = LocalDate.of(rnd.nextInt(25) + 1980, month, rnd.nextInt(28) + 1);
             repository.addValues(i + 1, name, gender, birthDate, (1 + rnd.nextDouble()) * 10, specie);
         }
 
